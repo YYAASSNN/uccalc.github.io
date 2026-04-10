@@ -1,17 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-                <style></style>
-            </head>
-            <body data-new-gr-c-s-check-loaded="14.1281.0" data-gr-ext-installed="">
-                
-
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Free UK self-employed income, HMRC mileage and Universal Credit calculator. Estimate net income and UC in one page — works on phone and desktop.">
 <title>CalcPro — Income, Mileage &amp; Universal Credit (UK)</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -64,30 +58,71 @@ body{font-family:'DM Sans',sans-serif;font-weight:600;background:#eaf0fb;color:v
 .brand-name em{font-style:normal;color:#60a5fa}
 .hdr-tag{font-size:11px;font-weight:500;color:#bfdbfe;background:rgba(59,130,246,0.15);border:1px solid rgba(59,130,246,0.25);padding:4px 12px;border-radius:20px;letter-spacing:0.04em}
 
-/* HERO */
-.hero{background:linear-gradient(135deg,#0b1d3a 0%,#1d4ed8 60%,#0891b2 100%);padding:48px 24px 52px;text-align:center;position:relative;overflow:hidden}
-.hero-orb{position:absolute;border-radius:50%;background:rgba(255,255,255,0.04);pointer-events:none}
-.hero-orb-1{width:380px;height:380px;right:-120px;top:-130px}
-.hero-orb-2{width:220px;height:220px;left:-70px;bottom:-80px}
-.hero-badge{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:600;letter-spacing:0.09em;text-transform:uppercase;color:#bfdbfe;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.14);padding:5px 14px;border-radius:20px;margin-bottom:18px;position:relative}
-.live-dot{width:7px;height:7px;background:#34d399;border-radius:50%;animation:pulse 2s infinite}
+/* HERO — split layout */
+.hero{
+  display:flex;
+  min-height:420px;
+  overflow:hidden;
+}
+.hero-left{
+  flex:1 1 55%;
+  background:linear-gradient(145deg,#0b1d3a 0%,#1a3a6e 100%);
+  display:flex;
+  align-items:center;
+  padding:52px 40px 52px 48px;
+  position:relative;
+  overflow:hidden;
+}
+.hero-left::after{
+  content:'';
+  position:absolute;
+  right:-60px;top:50%;transform:translateY(-50%);
+  width:120px;height:120%;
+  background:linear-gradient(145deg,#0b1d3a 0%,#1a3a6e 100%);
+  clip-path:polygon(0 0,100% 10%,100% 90%,0 100%);
+  z-index:2;
+}
+.hero-left-inner{position:relative;z-index:3;max-width:440px}
+.hero-right{
+  flex:0 0 45%;
+  position:relative;
+  overflow:hidden;
+}
+.hero-right img{
+  width:100%;height:100%;
+  object-fit:cover;
+  object-position:center center;
+  display:block;
+}
+/* mobile: stack vertically, image on top */
+@media(max-width:700px){
+  .hero{flex-direction:column}
+  .hero-right{flex:0 0 220px;width:100%}
+  .hero-left{flex:1;padding:36px 24px 40px;justify-content:center;text-align:center}
+  .hero-left::after{display:none}
+  .hero-left-inner{max-width:100%}
+  .hero-sub{margin-left:auto;margin-right:auto}
+  .hero-cta-row{justify-content:center}
+}
+.live-dot{width:7px;height:7px;background:#34d399;border-radius:50%;animation:pulse 2s infinite;display:inline-block}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
-.hero h1{font-family:'DM Sans',sans-serif;font-size:clamp(26px,5vw,42px);font-weight:800;color:#fff;line-height:1.15;margin-bottom:12px;position:relative;letter-spacing:-0.02em}
+.hero-badge{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:600;letter-spacing:0.09em;text-transform:uppercase;color:#bfdbfe;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);padding:5px 14px;border-radius:20px;margin-bottom:20px}
+.hero h1{font-family:'DM Sans',sans-serif;font-size:clamp(22px,3.2vw,36px);font-weight:800;color:#fff;line-height:1.18;margin-bottom:14px;letter-spacing:-0.02em}
 .hero h1 em{font-style:normal;font-weight:800;color:#93c5fd}
-.hero-sub{font-size:14px;font-weight:600;color:rgba(255,255,255,0.75);max-width:480px;margin:0 auto 28px;line-height:1.7;position:relative}
-.hero-cta-row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:8px;position:relative}
+.hero-sub{font-size:14px;font-weight:600;color:rgba(255,255,255,0.78);max-width:380px;margin:0 0 28px;line-height:1.7}
+.hero-cta-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:4px}
 .hero-cta{display:inline-flex;align-items:center;justify-content:center;padding:12px 22px;border-radius:12px;font-weight:800;font-size:14px;text-decoration:none;transition:transform 0.15s,box-shadow 0.15s}
 .hero-cta:active{transform:scale(0.98)}
-.hero-cta-primary{background:#fff;color:var(--navy);box-shadow:0 4px 20px rgba(0,0,0,0.15)}
-.hero-cta-primary:hover,.hero-cta-primary:focus-visible{box-shadow:0 6px 28px rgba(0,0,0,0.2);outline:none}
+.hero-cta-primary{background:#fff;color:var(--navy);box-shadow:0 4px 20px rgba(0,0,0,0.25)}
+.hero-cta-primary:hover,.hero-cta-primary:focus-visible{box-shadow:0 6px 28px rgba(0,0,0,0.35);outline:none}
 
 /* PAGE */
 .page{max-width:860px;margin:0 auto;padding:28px 16px 48px;width:100%;flex:1}
-.disclaimer-banner{display:flex;gap:14px;align-items:flex-start;background:linear-gradient(180deg,#fffbeb 0%,#fef3c7 100%);border:1.5px solid #fcd34d;border-radius:var(--r-lg);padding:16px 18px;margin-bottom:22px;box-shadow:0 1px 3px rgba(180,83,9,0.08)}
-.disclaimer-banner-icon{flex-shrink:0;width:28px;height:28px;margin-top:2px}
+.disclaimer-banner{display:flex;gap:8px;align-items:center;background:#fffbeb;border:1px solid #fcd34d;border-radius:var(--r-sm);padding:8px 14px;margin-bottom:16px}
+.disclaimer-banner-icon{flex-shrink:0;width:16px;height:16px}
 .disclaimer-banner-icon svg{width:100%;height:100%;stroke:#b45309;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.disclaimer-banner-title{display:block;font-size:14px;font-weight:800;color:#92400e;margin-bottom:6px;letter-spacing:-0.01em}
-.disclaimer-banner-text p{font-size:13px;font-weight:600;color:#78350f;line-height:1.55;margin:0}
+.disclaimer-banner-title{font-size:12px;font-weight:800;color:#92400e;margin-right:4px}
+.disclaimer-banner-text p{font-size:12px;font-weight:600;color:#78350f;line-height:1.4;margin:0;display:inline}
 
 .section-block{scroll-margin-top:88px}
 .section-kicker{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;color:var(--g600);margin-bottom:8px;padding:0 2px}
@@ -207,8 +242,6 @@ body{font-family:'DM Sans',sans-serif;font-weight:600;background:#eaf0fb;color:v
 .page-toolbar .btn-clear{padding:10px 16px;font-size:13px}
 </style>
 
-
-
 <a class="skip-link" href="#section-income">Skip to calculator</a>
 
 <header class="hdr">
@@ -226,13 +259,18 @@ body{font-family:'DM Sans',sans-serif;font-weight:600;background:#eaf0fb;color:v
 </header>
 
 <section class="hero" id="top">
-  <div class="hero-orb hero-orb-1"></div>
-  <div class="hero-orb hero-orb-2"></div>
-  <div class="hero-badge"><span class="live-dot"></span>Self-employed income tool</div>
-  <h1>Income, Mileage &amp;<br><em>Universal Credit Calculator</em></h1>
-  <p class="hero-sub">Track gross earnings, claim HMRC-approved mileage allowances, deduct allowable expenses and estimate your Universal Credit — all on this one page.</p>
-  <div class="hero-cta-row">
-    <a class="hero-cta hero-cta-primary" href="#section-income">Start with income</a>
+  <div class="hero-left">
+    <div class="hero-left-inner">
+      <div class="hero-badge"><span class="live-dot"></span>Self-employed income tool</div>
+      <h1>Income &amp; Mileage<br><em>Universal Credit</em><br>Calculator</h1>
+      <p class="hero-sub">Track your earnings, claim vehicle mileage and deduct expenses to see how much Universal Credit you could receive.</p>
+      <div class="hero-cta-row">
+        <a class="hero-cta hero-cta-primary" href="#section-income">Start with income</a>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <img src="https://pub-312d3078629e491faac32bc31bf01e5b.r2.dev/uc2.jpg" alt="Vehicle Mileage & Expenses Universal Credit Calculator" loading="eager">
   </div>
 </section>
 
@@ -242,8 +280,7 @@ body{font-family:'DM Sans',sans-serif;font-weight:600;background:#eaf0fb;color:v
       <svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
     </div>
     <div class="disclaimer-banner-text">
-      <strong class="disclaimer-banner-title">Not financial advice</strong>
-      <p>Figures are estimates for planning only. HMRC mileage rates 2024/25. Universal Credit rules are simplified here.</p>
+      <strong class="disclaimer-banner-title">Not financial advice —</strong><p>Figures are estimates for planning only. Vehicle mileage rates are based on standard approved amounts. Universal Credit rules are simplified — check your actual entitlement with Universal Credit.</p>
     </div>
   </aside>
   <div class="page-toolbar">
@@ -255,7 +292,6 @@ body{font-family:'DM Sans',sans-serif;font-weight:600;background:#eaf0fb;color:v
 
   <section id="section-income" class="section-block" aria-labelledby="income-heading">
     <p class="section-kicker"><span>Step 1</span> — Income &amp; expenses</p>
-  <!-- INCOME CARD -->
   <div class="card card-inc">
     <div class="card-hdr">
       <div class="ch-icon chi-blue">
@@ -318,7 +354,6 @@ body{font-family:'DM Sans',sans-serif;font-weight:600;background:#eaf0fb;color:v
 
   <section id="section-uc" class="section-block" aria-labelledby="uc-heading">
     <p class="section-kicker"><span>Step 2</span> — Universal Credit</p>
-  <!-- UC CARD -->
   <div class="card card-uc">
     <div class="card-hdr">
       <div class="ch-icon chi-violet">
@@ -349,7 +384,7 @@ body{font-family:'DM Sans',sans-serif;font-weight:600;background:#eaf0fb;color:v
           <div class="field"><label>Standard allowance (£) <span class="req">*</span></label>
             <select id="standardAllowance" onchange="updateStandard()">
               <option value="316.98">Single (Under 25) — £316.98</option>
-              <option value="400.14" selected="">Single (25 or Over) — £400.14</option>
+              <option value="400.14" selected>Single (25 or Over) — £400.14</option>
               <option value="497.55">Couple (Both Under 25) — £497.55</option>
               <option value="628.10">Couple (One or Both 25+) — £628.10</option>
             </select>
@@ -363,7 +398,7 @@ body{font-family:'DM Sans',sans-serif;font-weight:600;background:#eaf0fb;color:v
 
         <div class="sec-label">Income &amp; deductions</div>
         <div class="g2">
-          <div class="field"><label>Net income used by DWP (£) <span class="req">*</span></label><input type="number" id="totalIncomeNet" min="0" step="0.01" placeholder="Auto-filled from above" readonly=""></div>
+          <div class="field"><label>Net income used by DWP (£) <span class="req">*</span></label><input type="number" id="totalIncomeNet" min="0" step="0.01" placeholder="Auto-filled from above" readonly></div>
           <div class="field"><label>Minimum Income Floor (£)</label><input type="number" id="mifAmount" min="0" step="0.01" value="1642.72"></div>
           <div class="field"><label>Work allowance — first £ disregarded</label><input type="number" id="workAllowance" min="0" step="0.01" value="411.00"></div>
           <div class="field"><label>Advance repayments (£)</label><input type="number" id="advancePayments" min="0" step="0.01" placeholder="0.00"></div>
@@ -403,7 +438,7 @@ body{font-family:'DM Sans',sans-serif;font-weight:600;background:#eaf0fb;color:v
 <footer class="footer">
   <div class="footer-inner">
     <p class="footer-brand">Calc<em>Pro</em> — UK calculator</p>
-    <p class="footer-note"><strong>Not financial advice.</strong> Figures are estimates for planning only. HMRC mileage rates 2024/25. Universal Credit rules are simplified here.</p>
+    <p class="footer-note"><strong>Not financial advice.</strong> Figures are estimates for planning only. Vehicle mileage rates are based on standard approved amounts. Universal Credit rules are simplified — check your actual entitlement with Universal Credit.</p>
     <p class="footer-meta">Not legal advice.</p>
     <a class="footer-top" href="#top">Back to top</a>
   </div>
@@ -422,10 +457,7 @@ function toggleUC(){
   btn.innerHTML = (open ? 'Hide UC ' : 'Show UC ') + '<span class="arr">▾</span>';
 }
 
-function updateStandard(){
-  const val = parseFloat(document.getElementById('standardAllowance').value)||0;
-  calcEntitlement();
-}
+function updateStandard(){ calcEntitlement(); }
 
 function calcEntitlement(){
   const s = parseFloat(document.getElementById('standardAllowance').value)||0;
@@ -477,10 +509,7 @@ function clearUCOnly(){
   document.getElementById('ucOk').classList.remove('show');
 }
 
-function clearAll(){
-  clearIncomeOnly();
-  clearUCOnly();
-}
+function clearAll(){ clearIncomeOnly(); clearUCOnly(); }
 
 function showErr(aId, msg){
   const a = document.getElementById(aId);
@@ -597,14 +626,12 @@ function buildPDF(includeUC){
   const doc = new jsPDF({unit:'mm',format:'a4',compress:true});
   const pageW = doc.internal.pageSize.getWidth();
   const pageH = doc.internal.pageSize.getHeight();
-  const mL = 14;
-  const mR = 14;
+  const mL = 14, mR = 14;
   const colW = pageW - mL - mR;
   const amountRight = pageW - mR;
   const amountColW = 52;
   const labelLeft = mL + 2;
   const labelMax = amountRight - labelLeft - amountColW - 4;
-
   const FS = {title:15, meta:10, bar:11, row:11, rowTot:12, foot:9};
   const LH = {bar:8, gap:2};
   const lineH = 5;
@@ -614,30 +641,24 @@ function buildPDF(includeUC){
 
   let y = 36;
 
-  function ensureSpace(h){
-    if(y + h > pageH - 20){ doc.addPage(); y = 22; }
-  }
+  function ensureSpace(h){ if(y + h > pageH - 20){ doc.addPage(); y = 22; } }
 
   doc.setFillColor(11,29,58);
   doc.rect(0,0,pageW,26,'F');
   doc.setFillColor(29,78,216);
   doc.rect(0,26,pageW,2.5,'F');
-
   setBold(FS.title);
   doc.setTextColor(255,255,255);
   doc.text('Income & Expenses Report', mL, 17);
-
   setNorm(FS.meta);
   doc.setTextColor(186,210,253);
   doc.text('CalcPro · UK Tax Year 2024/25', amountRight, 17, {align:'right'});
 
   const sd = fmtDateLong(document.getElementById('startDate').value);
   const ed = fmtDateLong(document.getElementById('endDate').value);
-
   setBold(FS.meta);
   doc.setTextColor(29,78,216);
   doc.text('Period: '+sd+'  –  '+ed, mL, y);
-
   setNorm(FS.meta);
   doc.setTextColor(100,116,139);
   doc.text('Generated: '+new Date().toLocaleDateString('en-GB'), amountRight, y, {align:'right'});
@@ -654,32 +675,23 @@ function buildPDF(includeUC){
     setNorm(FS.row);
   }
 
-  function pdfAmount(s){
-    return String(s).replace(/\u2212/g,'-');
-  }
+  function pdfAmount(s){ return String(s).replace(/\u2212/g,'-'); }
 
   function rowLine(label, val, isTotal, br, bg, bb){
-    if(isTotal) setBold(FS.rowTot);
-    else setNorm(FS.row);
+    if(isTotal) setBold(FS.rowTot); else setNorm(FS.row);
     const lines = doc.splitTextToSize(String(label), labelMax);
     const blockH = 6 + (lines.length - 1) * lineH + 5;
     ensureSpace(blockH + 4);
-
     const v = pdfAmount(val);
-
     if(isTotal){
       setBold(FS.rowTot);
       doc.setTextColor(br||29, bg||78, bb||216);
-      lines.forEach((ln,i)=>{
-        doc.text(ln, labelLeft, y + 5 + i * lineH);
-      });
+      lines.forEach((ln,i)=>{ doc.text(ln, labelLeft, y + 5 + i * lineH); });
       doc.text(v, amountRight, y + 5, {align:'right'});
     } else {
       setNorm(FS.row);
       doc.setTextColor(71,85,105);
-      lines.forEach((ln,i)=>{
-        doc.text(ln, labelLeft, y + 5 + i * lineH);
-      });
+      lines.forEach((ln,i)=>{ doc.text(ln, labelLeft, y + 5 + i * lineH); });
       setBold(FS.row);
       doc.setTextColor(30,41,59);
       doc.text(v, amountRight, y + 5, {align:'right'});
@@ -725,7 +737,6 @@ function buildPDF(includeUC){
     const aboveAllow = Math.max(0,net-wa);
     const taperDed = aboveAllow*0.55;
     const payment = Math.max(0,ent-taperDed-adv-otd);
-
     bar('Universal Credit payment', 109, 40, 217);
     rowLine('Total entitlement', fmt(ent), false);
     rowLine('Work allowance disregarded', fmt(Math.min(wa,net)), false);
@@ -746,11 +757,10 @@ function buildPDF(includeUC){
   setNorm(FS.foot);
   doc.setTextColor(186,210,253);
   doc.text('Not financial advice · CalcPro', pageW/2, footY + 7.5, {align:'center'});
-
   doc.save('income_report'+(includeUC?'_with_uc':'')+'.pdf');
 }
 
-function saveIncomePDF(){if(calcIncome()) buildPDF(false);}
+function saveIncomePDF(){ if(calcIncome()) buildPDF(false); }
 function saveFullPDF(){
   const ok1 = calcIncome();
   if(!ok1) return;
@@ -762,10 +772,5 @@ function saveFullPDF(){
 
 calcEntitlement();
 </script>
-
-
-
-                <script>// Write JavaScript here</script>
-            
-        
-    </body><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration>
+</body>
+</html>
