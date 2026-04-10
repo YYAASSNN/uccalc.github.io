@@ -110,7 +110,6 @@ body{font-family:'DM Sans',sans-serif;font-weight:600;background:#eaf0fb;color:v
     <a href="index.html">Home</a>
     <a href="index.html#section-income">Calculator</a>
   </nav>
-  <div class="hdr-tag">Legal & Privacy</div>
 </header>
 
 <div class="legal-hero">
@@ -248,12 +247,41 @@ body{font-family:'DM Sans',sans-serif;font-weight:600;background:#eaf0fb;color:v
   <section id="contact" class="card card-blue" style="scroll-margin-top:88px">
     <div class="card-hdr">
       <div class="ch-icon chi-blue"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg></div>
-      <div class="ch-txt"><h2>Contact</h2><p>Questions about this policy or the tool</p></div>
+      <div class="ch-txt"><h2>Contact Us</h2><p>Questions about this policy or the tool</p></div>
     </div>
     <div class="card-body">
-      <p>If you have any questions about this privacy policy, the disclaimer, or how this tool works, you can reach us at <a href="mailto:hello@uccalc.co.uk">hello@uccalc.co.uk</a>.</p>
-      <p>If you believe any figures in the calculator are incorrect or out of date, please get in touch and we will review them promptly.</p>
+      <p>If you have any questions about this privacy policy, the disclaimer, or how this tool works — or if you believe any figures in the calculator are incorrect or out of date — please send us a message below and we will get back to you.</p>
       <p>This page was last updated in <strong>April 2025</strong>. We may update it from time to time — please check back periodically.</p>
+
+      <div id="contactSuccess" style="display:none;align-items:center;gap:9px;font-size:13px;font-weight:700;padding:10px 14px;border-radius:8px;margin:14px 0;background:#d1fae5;color:#059669;border:1px solid #a7f3d0">
+        <svg viewBox="0 0 24 24" style="width:15px;height:15px;flex-shrink:0;fill:none;stroke:#059669;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        Message sent! We'll be in touch soon.
+      </div>
+      <div id="contactError" style="display:none;align-items:center;gap:9px;font-size:13px;font-weight:700;padding:10px 14px;border-radius:8px;margin:14px 0;background:#ffe4e6;color:#e11d48;border:1px solid #fecdd3">
+        <svg viewBox="0 0 24 24" style="width:15px;height:15px;flex-shrink:0;fill:none;stroke:#e11d48;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+        <span id="contactErrorMsg">Something went wrong. Please try again.</span>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px">
+        <div>
+          <label style="display:block;font-size:13px;font-weight:700;color:#334155;margin-bottom:5px">Your name <span style="color:#e11d48">*</span></label>
+          <input type="text" id="legalContactName" placeholder="Jane Smith" autocomplete="name" style="width:100%;height:40px;padding:0 11px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;color:#1e293b;background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:8px;outline:none;transition:border-color 0.18s,box-shadow 0.18s" onfocus="this.style.borderColor='#3b82f6';this.style.boxShadow='0 0 0 3px rgba(59,130,246,0.12)'" onblur="this.style.borderColor='#e2e8f0';this.style.boxShadow='none'">
+        </div>
+        <div>
+          <label style="display:block;font-size:13px;font-weight:700;color:#334155;margin-bottom:5px">Email address <span style="color:#e11d48">*</span></label>
+          <input type="email" id="legalContactEmail" placeholder="jane@example.com" autocomplete="email" style="width:100%;height:40px;padding:0 11px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;color:#1e293b;background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:8px;outline:none;transition:border-color 0.18s,box-shadow 0.18s" onfocus="this.style.borderColor='#3b82f6';this.style.boxShadow='0 0 0 3px rgba(59,130,246,0.12)'" onblur="this.style.borderColor='#e2e8f0';this.style.boxShadow='none'">
+        </div>
+      </div>
+      <div style="margin-top:12px">
+        <label style="display:block;font-size:13px;font-weight:700;color:#334155;margin-bottom:5px">Message <span style="color:#e11d48">*</span></label>
+        <textarea id="legalContactMsg" rows="4" placeholder="Your question or feedback…" style="width:100%;padding:10px 11px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;color:#1e293b;background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:8px;outline:none;resize:vertical;transition:border-color 0.18s,box-shadow 0.18s" onfocus="this.style.borderColor='#3b82f6';this.style.boxShadow='0 0 0 3px rgba(59,130,246,0.12)'" onblur="this.style.borderColor='#e2e8f0';this.style.boxShadow='none'"></textarea>
+      </div>
+      <div style="margin-top:14px">
+        <button id="legalContactBtn" onclick="submitLegalContact()" style="display:inline-flex;align-items:center;justify-content:center;gap:7px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:800;background:#1d4ed8;color:#fff;border:none;border-radius:8px;padding:12px 22px;cursor:pointer;transition:background 0.18s">
+          <svg viewBox="0 0 24 24" style="width:15px;height:15px;stroke:#fff;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+          Send message
+        </button>
+      </div>
     </div>
   </section>
 
@@ -263,10 +291,46 @@ body{font-family:'DM Sans',sans-serif;font-weight:600;background:#eaf0fb;color:v
   <div class="footer-inner">
     <p class="footer-brand">uc<em>calc</em> — UK calculator</p>
     <p class="footer-note"><strong>Not financial advice.</strong> Figures are estimates for planning only. Not affiliated with DWP, HMRC or the UK Government. Always verify your entitlement at gov.uk.</p>
-    <p class="footer-meta">© 2025 uccalc.co.uk · <a href="legal.html" style="color:var(--g400)">Legal & Privacy</a></p>
+    <p class="footer-meta">© 2025 uccalc.co.uk · <a href="legal.html" style="color:var(--g400)">Legal &amp; Privacy</a></p>
     <a class="footer-top" href="#top">Back to top</a>
   </div>
 </footer>
 
+<script>
+async function submitLegalContact(){
+  const name=document.getElementById('legalContactName').value.trim();
+  const email=document.getElementById('legalContactEmail').value.trim();
+  const msg=document.getElementById('legalContactMsg').value.trim();
+  const ok=document.getElementById('contactSuccess');
+  const err=document.getElementById('contactError');
+  const errMsg=document.getElementById('contactErrorMsg');
+  ok.style.display='none'; err.style.display='none';
+  if(!name||!email||!msg){errMsg.textContent='Please fill in all fields.';err.style.display='flex';return;}
+  const btn=document.getElementById('legalContactBtn');
+  btn.disabled=true;btn.textContent='Sending…';
+  try{
+    const res=await fetch('https://api.web3forms.com/submit',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify({access_key:'8313ce2f-b515-4b9e-905b-838d4629ca05',name,email,message:msg,subject:'uccalc.co.uk — Legal page contact'})
+    });
+    const data=await res.json();
+    if(data.success){
+      ok.style.display='flex';
+      document.getElementById('legalContactName').value='';
+      document.getElementById('legalContactEmail').value='';
+      document.getElementById('legalContactMsg').value='';
+    } else {
+      errMsg.textContent='Something went wrong. Please try again.';
+      err.style.display='flex';
+    }
+  } catch(e){
+    errMsg.textContent='Network error. Please try again.';
+    err.style.display='flex';
+  }
+  btn.disabled=false;
+  btn.innerHTML='<svg viewBox="0 0 24 24" style="width:15px;height:15px;stroke:#fff;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>Send message';
+}
+</script>
 </body>
 </html>
