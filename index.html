@@ -240,6 +240,32 @@ body{font-family:'DM Sans',sans-serif;font-weight:600;background:#eaf0fb;color:v
 
 .page-toolbar{display:flex;justify-content:flex-end;margin-bottom:16px}
 .page-toolbar .btn-clear{padding:10px 16px;font-size:13px}
+
+/* DYNAMIC EXPENSES */
+.expense-row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.expense-row input[type="text"]{
+  flex:1;height:40px;padding:0 11px;
+  font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;color:var(--g800);
+  background:var(--g50);border:1.5px solid var(--g200);border-radius:var(--r-sm);
+  transition:border-color 0.18s,box-shadow 0.18s;outline:none;
+}
+.expense-row input[type="text"]:focus{border-color:var(--blue-light);background:#fff;box-shadow:0 0 0 3px rgba(59,130,246,0.12)}
+.expense-row input[type="text"]::placeholder{color:var(--g300)}
+.expense-row input[type="number"]{
+  width:110px;height:40px;padding:0 11px;
+  font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;color:var(--g800);
+  background:var(--g50);border:1.5px solid var(--g200);border-radius:var(--r-sm);
+  transition:border-color 0.18s,box-shadow 0.18s;outline:none;flex-shrink:0;
+}
+.expense-row input[type="number"]:focus{border-color:var(--blue-light);background:#fff;box-shadow:0 0 0 3px rgba(59,130,246,0.12)}
+.expense-row input[type="number"]::placeholder{color:var(--g300)}
+.expense-row .pound{font-size:14px;font-weight:700;color:var(--g600);flex-shrink:0}
+.btn-remove-expense{width:32px;height:32px;border-radius:6px;border:1.5px solid #fecdd3;background:var(--rose-light);color:var(--rose);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:all 0.18s}
+.btn-remove-expense:hover{background:#fda4af;border-color:var(--rose)}
+.btn-remove-expense svg{width:14px;height:14px;stroke:currentColor;stroke-width:2.5;stroke-linecap:round;fill:none}
+.btn-add-expense{display:inline-flex;align-items:center;gap:7px;margin-top:4px;padding:9px 16px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;color:var(--blue);background:var(--blue-ghost);border:1.5px dashed var(--blue-pale);border-radius:var(--r-sm);cursor:pointer;transition:all 0.18s}
+.btn-add-expense:hover{background:var(--blue-pale);border-color:var(--blue-light)}
+.btn-add-expense svg{width:14px;height:14px;stroke:var(--blue);stroke-width:2.5;fill:none}
 </style>
 
 <a class="skip-link" href="#section-income">Skip to calculator</a>
@@ -320,14 +346,19 @@ body{font-family:'DM Sans',sans-serif;font-weight:600;background:#eaf0fb;color:v
         <div class="field"><label>Business miles <span class="req">*</span></label><input type="number" id="totalMileage" min="0" step="1" placeholder="0"></div>
       </div>
 
-      <div class="sec-label">Allowable expenses</div>
+      <div class="sec-label">Allowable expenses — Fixed</div>
       <div class="g3">
         <div class="field"><label>Airport fees (£)</label><input type="number" id="airportFees" min="0" step="0.01" placeholder="0.00"></div>
         <div class="field"><label>Congestion charge (£)</label><input type="number" id="congestionCharge" min="0" step="0.01" placeholder="0.00"></div>
         <div class="field"><label>Mobile bills (£)</label><input type="number" id="mobileBills" min="0" step="0.01" placeholder="0.00"></div>
-        <div class="field"><label>Car wash (£)</label><input type="number" id="carWash" min="0" step="0.01" placeholder="0.00"></div>
-        <div class="field"><label>Other expenses (£)</label><input type="number" id="otherExpenses" min="0" step="0.01" placeholder="0.00"></div>
       </div>
+
+      <div class="sec-label">My Expenses</div>
+      <div id="customExpenseList"></div>
+      <button type="button" class="btn-add-expense" onclick="addExpenseRow()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+        Add expense
+      </button>
 
       <div class="btn-row">
         <button class="btn btn-primary" onclick="calcIncome()">
@@ -473,10 +504,37 @@ function calcEntitlement(){
 });
 document.getElementById('standardAllowance').addEventListener('change', calcEntitlement);
 
+function addExpenseRow(){
+  const list = document.getElementById('customExpenseList');
+  const row = document.createElement('div');
+  row.className = 'expense-row';
+  row.innerHTML = `
+    <input type="text" placeholder="Expense name" maxlength="40">
+    <span class="pound">£</span>
+    <input type="number" min="0" step="0.01" placeholder="0.00">
+    <button type="button" class="btn-remove-expense" onclick="this.parentElement.remove()" title="Remove">
+      <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    </button>`;
+  list.appendChild(row);
+  row.querySelector('input[type="text"]').focus();
+}
+
+function getCustomExpenses(){
+  const rows = document.querySelectorAll('#customExpenseList .expense-row');
+  const result = [];
+  rows.forEach(row=>{
+    const name = row.querySelector('input[type="text"]').value.trim() || 'Custom expense';
+    const amt = parseFloat(row.querySelector('input[type="number"]').value)||0;
+    if(amt > 0) result.push({name, amt});
+  });
+  return result;
+}
+
 function clearIncomeOnly(){
-  ['startDate','endDate','incomeSalary','totalMileage','airportFees','congestionCharge','mobileBills','carWash','otherExpenses'].forEach(id=>{
+  ['startDate','endDate','incomeSalary','totalMileage','airportFees','congestionCharge','mobileBills'].forEach(id=>{
     document.getElementById(id).value = '';
   });
+  document.getElementById('customExpenseList').innerHTML = '';
   document.getElementById('incTable').innerHTML = '';
   document.getElementById('mTotalExp').textContent = '—';
   document.getElementById('mNetIncome').textContent = '—';
@@ -548,10 +606,10 @@ function calcIncome(){
   const airport = parseFloat(document.getElementById('airportFees').value)||0;
   const cong = parseFloat(document.getElementById('congestionCharge').value)||0;
   const mobile = parseFloat(document.getElementById('mobileBills').value)||0;
-  const wash = parseFloat(document.getElementById('carWash').value)||0;
-  const other = parseFloat(document.getElementById('otherExpenses').value)||0;
+  const customExps = getCustomExpenses();
+  const customTotal = customExps.reduce((sum,e)=>sum+e.amt, 0);
   const mileageAmt = getMileageAmt(miles);
-  const totalExp = mileageAmt+airport+cong+mobile+wash+other;
+  const totalExp = mileageAmt+airport+cong+mobile+customTotal;
   const netIncome = salary-totalExp;
 
   const rows = [
@@ -561,8 +619,7 @@ function calcIncome(){
   if(airport) rows.push(['Airport fees','−'+fmt(airport)]);
   if(cong)    rows.push(['Congestion charge','−'+fmt(cong)]);
   if(mobile)  rows.push(['Mobile bills','−'+fmt(mobile)]);
-  if(wash)    rows.push(['Car wash','−'+fmt(wash)]);
-  if(other)   rows.push(['Other expenses','−'+fmt(other)]);
+  customExps.forEach(e=>rows.push([e.name,'−'+fmt(e.amt)]));
   rows.push(['Net income', fmt(netIncome)]);
 
   document.getElementById('incTable').innerHTML = buildRows(rows);
@@ -709,10 +766,10 @@ function buildPDF(includeUC){
   const airport= parseFloat(document.getElementById('airportFees').value)||0;
   const cong   = parseFloat(document.getElementById('congestionCharge').value)||0;
   const mobile = parseFloat(document.getElementById('mobileBills').value)||0;
-  const wash   = parseFloat(document.getElementById('carWash').value)||0;
-  const other  = parseFloat(document.getElementById('otherExpenses').value)||0;
+  const customExps = getCustomExpenses();
+  const customTotal = customExps.reduce((sum,e)=>sum+e.amt,0);
   const mileageAmt = getMileageAmt(miles);
-  const totalExp = mileageAmt+airport+cong+mobile+wash+other;
+  const totalExp = mileageAmt+airport+cong+mobile+customTotal;
   const netIncome = salary-totalExp;
 
   bar('Income summary', 29, 78, 216);
@@ -721,8 +778,7 @@ function buildPDF(includeUC){
   if(airport) rowLine('Airport fees', '−'+fmt(airport), false);
   if(cong)    rowLine('Congestion charge', '−'+fmt(cong), false);
   if(mobile)  rowLine('Mobile bills', '−'+fmt(mobile), false);
-  if(wash)    rowLine('Car wash', '−'+fmt(wash), false);
-  if(other)   rowLine('Other expenses', '−'+fmt(other), false);
+  customExps.forEach(e=>rowLine(e.name,'−'+fmt(e.amt),false));
   rowLine('Total expenses', fmt(totalExp), false);
   y += 2;
   rowLine('Net income', fmt(netIncome), true, 29, 78, 216);
