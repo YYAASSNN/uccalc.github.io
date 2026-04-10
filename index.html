@@ -361,45 +361,10 @@ body{font-family:'DM Sans',sans-serif;font-weight:600;background:#eaf0fb;color:v
   </section>
 </main>
 
-<section id="section-contact" style="background:var(--g50);border-top:1px solid var(--g200);padding:40px 16px">
-  <div style="max-width:560px;margin:0 auto">
-    <p class="section-kicker" style="margin-bottom:8px"><span>Contact</span> — Get in touch</p>
-    <div class="card" style="margin-bottom:0">
-      <div class="card-hdr" style="background:linear-gradient(90deg,var(--blue-ghost) 0%,#fff 100%)">
-        <div class="ch-icon chi-blue"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg></div>
-        <div class="ch-txt"><h2>Send us a message</h2><p>Questions, feedback or issues — we'll get back to you</p></div>
-      </div>
-      <div class="card-body">
-        <div id="contactSuccess" class="alert alert-ok" style="display:none;margin-bottom:14px"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Message sent! We'll be in touch soon.</span></div>
-        <div id="contactError" class="alert alert-err" style="display:none;margin-bottom:14px"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg><span>Something went wrong. Please try again.</span></div>
-        <div class="g2" style="margin-bottom:12px">
-          <div class="field">
-            <label for="contactName">Your name <span class="req">*</span></label>
-            <input type="text" id="contactName" placeholder="Jane Smith" autocomplete="name">
-          </div>
-          <div class="field">
-            <label for="contactEmail">Email address <span class="req">*</span></label>
-            <input type="email" id="contactEmail" placeholder="jane@example.com" autocomplete="email">
-          </div>
-        </div>
-        <div class="field" style="margin-bottom:12px">
-          <label for="contactMsg">Message <span class="req">*</span></label>
-          <textarea id="contactMsg" rows="4" placeholder="Your message…" style="width:100%;padding:10px 11px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;color:var(--g800);background:var(--g50);border:1.5px solid var(--g200);border-radius:var(--r-sm);outline:none;resize:vertical;transition:border-color 0.18s,box-shadow 0.18s" onfocus="this.style.borderColor='var(--blue-light)';this.style.boxShadow='0 0 0 3px rgba(59,130,246,0.12)'" onblur="this.style.borderColor='var(--g200)';this.style.boxShadow='none'"></textarea>
-        </div>
-        <div class="btn-row">
-          <button class="btn btn-primary" onclick="submitContact()">
-            <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-            Send message
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <footer class="footer">
   <div class="footer-inner">
-    <p class="footer-brand">uc<em>calc</em> — UK calculator</p>
+    <a href="#top" class="footer-brand" style="display:block;text-decoration:none">uc<em>calc</em> — UK calculator</a>
     <p class="footer-note"><strong>Not financial advice.</strong> Figures are estimates for planning only. Not affiliated with DWP, HMRC or the UK Government. Always verify your entitlement at gov.uk.</p>
     <p class="footer-meta">Not legal advice · <a href="legal.html" style="color:var(--g400)">Legal &amp; Privacy Policy</a></p>
     <a class="footer-top" href="#top">Back to top</a>
@@ -656,42 +621,8 @@ function buildPDF(includeUC){
 function saveIncomePDF(){if(calcIncome())buildPDF(false)}
 function saveFullPDF(){if(calcIncome()&&calcUC())buildPDF(true)}
 
-/* CONTACT FORM */
-async function submitContact(){
-  const name=document.getElementById('contactName').value.trim();
-  const email=document.getElementById('contactEmail').value.trim();
-  const msg=document.getElementById('contactMsg').value.trim();
-  const ok=document.getElementById('contactSuccess');
-  const err=document.getElementById('contactError');
-  ok.style.display='none'; err.style.display='none';
-  if(!name||!email||!msg){err.querySelector('span').textContent='Please fill in all fields.';err.style.display='flex';return;}
-  const btn=event.currentTarget;
-  btn.disabled=true;btn.textContent='Sending…';
-  try{
-    const res=await fetch('https://api.web3forms.com/submit',{
-      method:'POST',
-      headers:{'Content-Type':'application/json','Accept':'application/json'},
-      body:JSON.stringify({access_key:'8313ce2f-b515-4b9e-905b-838d4629ca05',name,email,message:msg,subject:'uccalc.co.uk — Contact form'})
-    });
-    const data=await res.json();
-    if(data.success){
-      ok.style.display='flex';
-      document.getElementById('contactName').value='';
-      document.getElementById('contactEmail').value='';
-      document.getElementById('contactMsg').value='';
-    } else {
-      err.querySelector('span').textContent='Something went wrong. Please try again.';
-      err.style.display='flex';
-    }
-  } catch(e){
-    err.querySelector('span').textContent='Network error. Please try again.';
-    err.style.display='flex';
-  }
-  btn.disabled=false;btn.innerHTML='<svg viewBox="0 0 24 24" style="width:15px;height:15px;stroke:#fff;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>Send message';
-}
 
 calcEntitlement();
 </script>
 </body>
 </html>
-
