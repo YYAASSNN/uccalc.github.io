@@ -3,8 +3,38 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Free UK self-employed income, HMRC mileage and Universal Credit calculator. Estimate net income and UC in one page — works on phone and desktop.">
+<meta name="description" content="Free UK self-employed income, mileage and Universal Credit calculator. Estimate net income and UC in one page — works on phone and desktop.">
 <title>uccalc.co.uk — Income, Mileage &amp; UC Calculator (UK)</title>
+
+<!-- SEO -->
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://uccalc.co.uk/">
+
+<!-- Open Graph -->
+<meta property="og:title" content="uccalc.co.uk — Income, Mileage & UC Calculator (UK)">
+<meta property="og:description" content="Free UK self-employed income, mileage and Universal Credit calculator. Estimate net income and UC in one page — works on phone and desktop.">
+<meta property="og:url" content="https://uccalc.co.uk/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="UCCalc">
+
+<!-- Schema.org -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "UCCalc",
+  "url": "https://uccalc.co.uk",
+  "description": "Free UK self-employed income, mileage and Universal Credit calculator. Estimate net income and UC in one page.",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "All",
+  "inLanguage": "en-GB",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "GBP"
+  }
+}
+</script>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
@@ -223,6 +253,17 @@ body{font-family:'DM Sans',sans-serif;font-weight:600;background:#eaf0fb;color:v
     </button>
   </div>
 
+  <!-- WARNING BANNER -->
+  <div class="disclaimer-banner" role="alert">
+    <div class="disclaimer-banner-icon">
+      <svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+    </div>
+    <div class="disclaimer-banner-text">
+      <span class="disclaimer-banner-title">⚠ Important:</span>
+      <p>Not financial advice. Figures are estimates for planning only. Not affiliated with DWP, HMRC or the UK Government. Always verify your entitlement at <a href="https://www.gov.uk/universal-credit" target="_blank" rel="noopener" style="color:#92400e;font-weight:800;">gov.uk</a>.</p>
+    </div>
+  </div>
+
   <!-- STEP 1 -->
   <section id="section-income" class="section-block" aria-labelledby="income-heading">
     <p class="section-kicker"><span>Step 1</span> — Income &amp; expenses</p>
@@ -380,6 +421,7 @@ body{font-family:'DM Sans',sans-serif;font-weight:600;background:#eaf0fb;color:v
     <a href="#top" class="footer-brand" style="display:block;text-decoration:none">uc<em>calc</em> — UK calculator</a>
     <p class="footer-note"><strong>Not financial advice.</strong> Figures are estimates for planning only. Not affiliated with DWP, HMRC or the UK Government. Always verify your entitlement at gov.uk.</p>
     <p class="footer-meta">Not legal advice · <a href="legal.html" style="color:var(--g400)">Legal &amp; Privacy Policy</a></p>
+    <p class="footer-meta">© 2025 uccalc.co.uk — All rights reserved.</p>
     <a class="footer-top" href="#top">Back to top</a>
   </div>
 </footer>
@@ -608,7 +650,7 @@ function buildPDF(includeUC){
   doc.setFillColor(11,29,58);doc.rect(0,0,pageW,26,'F');
   doc.setFillColor(29,78,216);doc.rect(0,26,pageW,2.5,'F');
   setBold(15);doc.setTextColor(255,255,255);doc.text('Income & Expenses Report',mL,17);
-  setNorm(10);doc.setTextColor(186,210,253);doc.text('CalcPro · UK Tax Year 2024/25',amountRight,17,{align:'right'});
+  setNorm(10);doc.setTextColor(186,210,253);doc.text('uccalc',amountRight,17,{align:'right'});
   const sd=fmtDateLong(document.getElementById('startDate').value);
   const ed=fmtDateLong(document.getElementById('endDate').value);
   setBold(10);doc.setTextColor(29,78,216);doc.text('Period: '+sd+'  –  '+ed,mL,y);
@@ -665,7 +707,7 @@ function buildPDF(includeUC){
   const footY=pageH-11;
   doc.setFillColor(11,29,58);doc.rect(0,footY,pageW,11,'F');
   doc.setFillColor(29,78,216);doc.rect(0,footY,pageW,2,'F');
-  setNorm(9);doc.setTextColor(186,210,253);doc.text('Not financial advice · CalcPro · uccalc.co.uk',pageW/2,footY+7.5,{align:'center'});
+  setNorm(9);doc.setTextColor(186,210,253);doc.text('Not financial advice · uccalc.co.uk',pageW/2,footY+7.5,{align:'center'});
   doc.save('income_report'+(includeUC?'_with_uc':'')+'.pdf');
 }
 function saveIncomePDF(){if(calcIncome())buildPDF(false)}
