@@ -7,7 +7,7 @@ export default {
       return new Response(FAVICON_SVG, { headers: { 'Content-Type': 'image/svg+xml', 'Cache-Control': 'public, max-age=86400' } });
     }
     if (path === '/favicon.ico') {
-      const ico = Uint8Array.from(atob('AAABAAEAEBAAAAAAIADzAAAAFgAAAIlQTkcNChoKAAAADUlIRFIAAAAQAAAAEAgGAAAAH/P/YQAAALpJREFUeJxjZIACblmr/wwkgK+PjzEyMDAwMJGjGVkPIzmakQETJZqpb0B+ehTD0hmtDAwMDAzHdyxkCPByZJCSEGXYumISw6ubexmObV/AwMSEaicLIRvK8xMYPn3+yqBo6M3w9dsP/C748uUbg5ioEIOwED+DoAAfw5ev3xgYGRmJ98LGHQcY2NhYGW6e3MBw6+5DhiMnzjN0TVrAIMDHy/DgwjaGk7sWYXhhuEXjgBjAKOt3Y2ADEQA4Ijai2lFAPAAAAABJRU5ErkJggg=='), c => c.charCodeAt(0));
+      const ico = Uint8Array.from(atob('AAABAAEAEBAAAAAAIAA2AQAAFgAAAIlQTkcNChoKAAAADUlIRFIAAAAQAAAAEAgGAAAAH/P/YQAAAP1JREFUeJxjZIACblmr/wwkgK+PjzEyMDAwMJGjGVkPE4wREeTO8PLGXgYGBgYGVwcLhi+PjjJwc3MyMDIxMxj45jD41qxnCGjcyqDtmohiCAshm5Qt/BgUTDwZDs4uYnj/9BYDw39Ux8IN+P8fiy/+/2cQkFJleP/kFsP7JzexWsAEY7x89Y6Bi5OdQU5agkFdRZ7hy5dvDF+//WD48Ow2g6CMGoOgtBpWA+AuOHT8HMPK9bsYTu9ZwvDl2zeGssaJDAwMDAx3T2xi4BGWZrBN7GRgZuNguHV4NcPV3fPgBjCSEwNYvTBqwEAaAMtV5ICvj48xMsr63aAoHQAAdjlQeH6o/JQAAAAASUVORK5CYII='), c => c.charCodeAt(0));
       return new Response(ico, { headers: { 'Content-Type': 'image/x-icon', 'Cache-Control': 'public, max-age=86400' } });
     }
     if (path === '/sitemap.xml') {
@@ -41,18 +41,16 @@ const INDEX_HTML = `<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Free UK self-employed income, mileage and Universal Credit calculator. Estimate net income and UC in one page — works on phone and desktop.">
-<title>uccalc.co.uk — Income, Mileage &amp; UC Calculator (UK)</title>
+<title>Income, Mileage &amp; UC Calculator (UK)</title>
 
 <!-- SEO -->
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://uccalc.co.uk/">
-
-<!-- FAVICON — FIXED -->
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
 
 <!-- Open Graph -->
-<meta property="og:title" content="uccalc.co.uk — Income, Mileage & UC Calculator (UK)">
+<meta property="og:title" content="Income, Mileage &amp; UC Calculator (UK)">
 <meta property="og:description" content="Free UK self-employed income, mileage and Universal Credit calculator. Estimate net income and UC in one page — works on phone and desktop.">
 <meta property="og:url" content="https://uccalc.co.uk/">
 <meta property="og:type" content="website">
@@ -63,7 +61,7 @@ const INDEX_HTML = `<!DOCTYPE html>
 {
   "@context": "https://schema.org",
   "@type": "WebApplication",
-  "name": "UCCalc",
+  "name": "Income, Mileage & UC Calculator (UK)",
   "url": "https://uccalc.co.uk",
   "description": "Free UK self-employed income, mileage and Universal Credit calculator. Estimate net income and UC in one page.",
   "applicationCategory": "FinanceApplication",
@@ -829,11 +827,6 @@ const LEGAL_HTML = `<!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Legal disclaimer, privacy policy and terms of use for uccalc.co.uk — UK self-employed Universal Credit calculator.">
 <title>Legal & Privacy — uccalc.co.uk</title>
-
-<!-- FAVICON — FIXED -->
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
-<link rel="icon" type="image/x-icon" href="/favicon.ico">
-
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,600&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -1185,6 +1178,8 @@ const SITEMAP_XML = `<?xml version="1.0" encoding="UTF-8"?>
 const FAVICON_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
   <rect width="32" height="32" rx="6" fill="#0b1d3a"/>
   <rect y="29" width="32" height="3" rx="0" fill="#1d4ed8"/>
-  <text x="16" y="21" font-family="Arial Black, Arial" font-weight="900" font-size="13" fill="white" text-anchor="middle">UC</text>
+  <text font-family="Arial Black, Arial" font-weight="900" font-size="13">
+    <tspan x="7" y="21" fill="white">U</tspan><tspan fill="#60a5fa">C</tspan>
+  </text>
 </svg>
 `;
