@@ -485,7 +485,7 @@ body{font-family:'DM Sans',sans-serif;font-weight:600;background:#eaf0fb;color:v
       Not legal advice · <a href="/legal">Legal &amp; Privacy</a>
     </span>
     <div class="share-bar-dot"></div>
-    <span class="share-bar-legal-text">© 2026 uccalc.co.uk — All rights reserved.</span>
+    <span class="share-bar-legal-text">© 2026 <a href="https://uccalc.co.uk/" style="color:inherit;text-decoration:underline;text-underline-offset:3px;">uccalc.co.uk</a> — All rights reserved.</span>
   </div>
   <div class="share-bar-row">
     <span class="share-bar-label">Share</span>
@@ -1173,7 +1173,7 @@ body{font-family:'DM Sans',sans-serif;font-weight:600;background:#eaf0fb;color:v
       Not legal advice · <a href="/legal">Legal &amp; Privacy</a>
     </span>
     <div class="share-bar-dot"></div>
-    <span class="share-bar-legal-text">© 2026 uccalc.co.uk — All rights reserved.</span>
+    <span class="share-bar-legal-text">© 2026 <a href="https://uccalc.co.uk/" style="color:inherit;text-decoration:underline;text-underline-offset:3px;">uccalc.co.uk</a> — All rights reserved.</span>
   </div>
   <div class="share-bar-row">
     <span class="share-bar-label">Share</span>
