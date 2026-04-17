@@ -4,11 +4,11 @@ export default {
     const path = url.pathname;
 
     if (path === '/favicon.svg') {
-      return new Response(FAVICON_SVG, { headers: { 'Content-Type': 'image/svg+xml', 'Cache-Control': 'public, max-age=86400' } });
+      return new Response(FAVICON_SVG, { headers: { 'Content-Type': 'image/svg+xml', 'Cache-Control': 'no-cache' } });
     }
     if (path === '/favicon.ico') {
-      const ico = Uint8Array.from(atob('AAABAAEAEBAAAAAAIAA2AQAAFgAAAIlQTkcNChoKAAAADUlIRFIAAAAQAAAAEAgGAAAAH/P/YQAAAP1JREFUeJxjZIACblmr/wwkgK+PjzEyMDAwMJGjGVkPE4wREeTO8PLGXgYGBgYGVwcLhi+PjjJwc3MyMDIxMxj45jD41qxnCGjcyqDtmohiCAshm5Qt/BgUTDwZDs4uYnj/9BYDw39Ux8IN+P8fiy/+/2cQkFJleP/kFsP7JzexWsAEY7x89Y6Bi5OdQU5agkFdRZ7hy5dvDF+//WD48Ow2g6CMGoOgtBpWA+AuOHT8HMPK9bsYTu9ZwvDl2zeGssaJDAwMDAx3T2xi4BGWZrBN7GRgZuNguHV4NcPV3fPgBjCSEwNYvTBqwEAaAMtV5ICvj48xMsr63aAoHQAAdjlQeH6o/JQAAAAASUVORK5CYII='), c => c.charCodeAt(0));
-      return new Response(ico, { headers: { 'Content-Type': 'image/x-icon', 'Cache-Control': 'public, max-age=86400' } });
+      const ico = Uint8Array.from(atob('AAABAAEAEBAAAAAAIADzAAAAFgAAAIlQTkcNChoKAAAADUlIRFIAAAAQAAAAEAgGAAAAH/P/YQAAALpJREFUeJxjZIACblmr/wwkgK+PjzEyMDAwMJGjGVkPIzmakQETJZqpb0B+ehTD0hmtDAwMDAzHdyxkCPByZJCSEGXYumISw6ubexmObV/AwMSEaicLIRvK8xMYPn3+yqBo6M3w9dsP/C748uUbg5ioEIOwED+DoAAfw5ev3xgYGRmJ98LGHQcY2NhYGW6e3MBw6+5DhiMnzjN0TVrAIMDHy/DgwjaGk7sWYXhhuEXjgBjAKOt3Y2ADEQA4Ijai2lFAPAAAAABJRU5ErkJggg=='), c => c.charCodeAt(0));
+      return new Response(ico, { headers: { 'Content-Type': 'image/x-icon', 'Cache-Control': 'no-cache' } });
     }
     if (path === '/sitemap.xml') {
       return new Response(SITEMAP_XML, { headers: { 'Content-Type': 'application/xml', 'Cache-Control': 'public, max-age=3600' } });
@@ -52,8 +52,9 @@ const INDEX_HTML = `<!DOCTYPE html>
 <title>Income, Mileage &amp; UC Calculator (UK)</title>
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://uccalc.co.uk/">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-<link rel="icon" type="image/x-icon" href="/favicon.ico">
 <meta property="og:title" content="Income, Mileage &amp; UC Calculator (UK)">
 <meta property="og:description" content="Free UK self-employed income, mileage and Universal Credit calculator. Estimate net income and UC in one page — works on phone and desktop.">
 <meta property="og:url" content="https://uccalc.co.uk/">
@@ -1288,8 +1289,7 @@ const SITEMAP_XML = `<?xml version="1.0" encoding="UTF-8"?>
 const FAVICON_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
   <rect width="32" height="32" rx="6" fill="#0b1d3a"/>
   <rect y="29" width="32" height="3" rx="0" fill="#1d4ed8"/>
-  <text font-family="Arial Black, Arial" font-weight="900" font-size="13">
-    <tspan x="7" y="21" fill="white">U</tspan><tspan fill="#60a5fa">C</tspan>
+  <text x="16" y="21" font-family="Arial Black, Arial" font-weight="900" font-size="13" text-anchor="middle">
+    <tspan fill="white">U</tspan><tspan fill="#1d4ed8">C</tspan>
   </text>
-</svg>
-`;
+</svg>`;
